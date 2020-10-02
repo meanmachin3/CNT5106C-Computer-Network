@@ -1,0 +1,701 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Structured General Purpose Assignment
+% LaTeX Template
+%
+% This template has been downloaded from:
+% http://www.latextemplates.com
+%
+% Original author:
+%  Ted Pavlic (http://www.tedpavlic.com)
+% Modified by:
+%  Joe Del Rocco (https://joe.delrocco.org)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%  PACKAGES AND CONFIGURATION
+%----------------------------------------------------------------------------------------
+
+\documentclass[fleqn]{article}
+\usepackage{geometry}
+\usepackage{fancyhdr} % For custom headers
+\usepackage{lastpage} % To determine the last page for the footer
+\usepackage{extramarks} % For headers and footers
+\usepackage[most]{tcolorbox} % For problem answer sections
+\usepackage{graphicx} % For inserting images
+\usepackage{xcolor} % For link coloring
+\usepackage[hidelinks]{hyperref} % For URL links (no box or color name)
+\usepackage{bm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+
+% Margins
+\geometry{
+a4paper,
+tmargin=1in,
+bmargin=1in,
+lmargin=1in,
+rmargin=1in,
+textwidth=6.5in,
+textheight=9.0in,
+headsep=0.25in
+}
+
+% Header and footer
+\pagestyle{fancy}
+\lhead{\myName} % Top left header
+\chead{\myCourse: \myAssignment} % Top center header
+\rhead{\firstxmark} % Top right header
+\lfoot{\lastxmark} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+% Other configurations
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+\setlength\parskip{1pt} % Ensures paragraphs are still recognizable as such
+\setcounter{secnumdepth}{0} % Removes default section numbers
+\setcounter{tocdepth}{3} % Sets depth of table of contents
+\linespread{1.1}
+
+% Template values
+% \newcommand{\myLogo}{starfleet.jpg}
+\newcommand{\myName}{Manish Yadav}
+\newcommand{\myJobTitle}{3836-6483}
+\newcommand{\myCompany}{Starfleet Academy}
+\newcommand{\myLocation}{1701 Lincoln Blvd, San Francisco, CA}
+\newcommand{\myURL}{www.starfleet.edu}
+\newcommand{\myEmail}{m.yadav@ufl.edu}
+\newcommand{\myCourse}{CNT5106C}
+\newcommand{\mySection}{Fall 2020}
+\newcommand{\myTeacher}{Dr. Ye Xia}
+\newcommand{\myAssignment}{Homework 1}
+\newcommand{\myDueDate}{Tue,\ Sept\ 15,\ 2020}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+
+%----------------------------------------------------------------------------------------
+%  DOCUMENT STRUCTURE (MACROS & ENVIRONMENTS)
+%----------------------------------------------------------------------------------------
+
+% Colored links macro
+\newcommand{\hrefcol}[3] {\href{#1}{\textcolor{#3}{#2}}}
+
+% Creates a counter to keep track of the number of problems
+\newcounter{homeworkProblemCounter}
+
+% Macro for custom title page signature header
+\newsavebox{\myTitleSignature}
+\sbox{\myTitleSignature}{%
+\begin{tabular*}{\textwidth}{@{}l@{}@{\extracolsep{0.125in}}l@{}}%
+\parbox[c][]{2.5in}{{\textbf{\myName} \par}
+                    {\small \myJobTitle \par}
+                    {\small \hrefcol{mailto:\myEmail}{\myEmail}{blue}} \par}
+\end{tabular*}}
+
+% Header and footer for when a page split occurs within a problem environment
+\newcommand{\enterProblemHeader}[1]{%
+\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+}
+
+% Header and footer for when a page split occurs between problem environments
+\newcommand{\exitProblemHeader}[1]{%
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+\nobreak\extramarks{#1}{}\nobreak%
+}
+
+\newcommand{\homeworkProblemName}{} % Argument = name of problem; default = "Problem #"
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]{%
+\stepcounter{homeworkProblemCounter}% % Increase counter for number of problems
+\renewcommand{\homeworkProblemName}{#1}% % Assign \homeworkProblemName the argument
+\section{\homeworkProblemName}% % Make a section in the document with the custom problem count
+\enterProblemHeader{\homeworkProblemName}% % Header and footer within environment
+}{%
+\exitProblemHeader{\homeworkProblemName}% % Header and footer after environment
+}
+
+\newcommand{\problemAnswer}[1]{ % Defines the problem answer command with the content as the only argument
+\begin{tcolorbox}[breakable,enhanced,colback=gray!5!white,title=Answer]%
+#1
+\end{tcolorbox}%
+% Alternative - Makes the box around the problem answer and puts the content inside
+%\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}}
+}
+
+\newcommand{\homeworkSectionName}{}
+\newenvironment{homeworkSection}[1]{% % For sections w/in problems; Argument = name of section (no default)
+\renewcommand{\homeworkSectionName}{#1}% % Assign \homeworkSectionName the argument
+\subsection{\homeworkSectionName}% % Make a subsection with the name of the subsection
+\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}% % Header and footer within environment
+}{%
+\enterProblemHeader{\homeworkProblemName}% % Header and footer after environment
+}
+
+%----------------------------------------------------------------------------------------
+%   TITLE PAGE
+%----------------------------------------------------------------------------------------
+\begin{document}
+
+% Blank out the traditional title page
+\title{\vspace{-1in}} % no title name
+\author{} % no author name
+\date{} % no date listed
+\maketitle % makes this a title page
+
+% Use custom title macro instead
+\usebox{\myTitleSignature}
+\vspace{1in} % spacing below title header
+
+% Assignment title
+{\centering \huge \myAssignment \par}
+{\centering \noindent\rule{4in}{0.1pt} \par}
+\vspace{0.05in}
+{\centering \myCourse~: \mySection~: \myTeacher \par}
+{\centering Due \myDueDate \par}
+%{\centering Prepared w/ \LaTeX \par}
+\vspace{1in}
+
+% Table of Contents
+\tableofcontents
+\newpage
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 1
+%----------------------------------------------------------------------------------------
+
+%\begin{homeworkProblem}[Exercise \#\arabic{homeworkProblemCounter}] % Use for custom section title
+\begin{homeworkProblem}
+\begin{homeworkSection}{(a)}
+A user requests a Web page that consists of some text and three images. For this page, the client will send one request message and receive four response messages \\
+\problemAnswer{
+    False. Only Single response would be received.
+}
+\end{homeworkSection}
+\begin{homeworkSection}{(b)}
+Two distinct Web pages (for example, www.mit.edu/research.html and
+www.mit.edu/students.html) can be sent over the same persistent connection. \\
+\problemAnswer{
+True. With persistent connections, the server leaves the TCP connection open after sending responses and hence the subsequent requests and responses between the same client and server can be sent. 
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{(c)}
+With nonpersistent connections between browser and origin server, it is possible for a single TCP segment to carry two distinct HTTP request messages. \\
+\problemAnswer{
+False. A single TCP segment can carry only single request/response.
+}
+\end{homeworkSection}
+
+
+\begin{homeworkSection}{(d)}
+The \texttt{Date: header} in the HTTP response message indicates when the object in the response was last modified.\\
+\problemAnswer{
+False. The date and time at which the message was originated (in "HTTP-date" format as defined by RFC 7231 Date/Time Formats).
+}
+\end{homeworkSection}
+
+
+\begin{homeworkSection}{(e)}
+HTTP response messages never have an empty message body.\\
+\problemAnswer{
+False.  Not all responses have one: responses with a status code that sufficiently answers the request without the need for corresponding payload (like 201 Created or 204 No Content) usually don't.
+}
+\end{homeworkSection}
+\end{homeworkProblem}
+%----------------------------------------------------------------------------------------
+\pagebreak
+
+\begin{homeworkProblem}
+\begin{homeworkSection}{}
+Consider an HTTP client that wants to retrieve a Web document at a given URL. The IP address of the HTTP server is initially unknown. What transport and application-layer protocols besides HTTP are needed in this scenario \\
+\problemAnswer{
+   In order to receive a web document from a given URL, its IP address needs to be resolved. This is done using DNS. Once the URL is resolved a subsequent request is made to fetch Web document.\\
+   \textbf{Transport Layer Protocol Used: } UDP(DNS) and TCP (HTTP) \\
+   \textbf{Application Layer Protocol Used:} DNS and HTTP \\
+}
+\end{homeworkSection}
+
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+\pagebreak
+
+\begin{homeworkProblem}
+Consider Figure 2.12 , for which there is an institutional network connected to the Internet. Suppose that the average object size is 850,000 bits and that the average request rate from the
+institution’s browsers to the origin servers is 16 requests per second. Also suppose that the amount of time it takes from when the router on the Internet side of the access link forwards an
+HTTP request until it receives the response is three seconds on average (see Section 2.2.5). Model the total average response time as the sum of the average access delay (that is, the delay
+from Internet router to institution router) and the average Internet delay. For the average access delay, use $\Delta / (1 - \Delta \beta)$, where $\Delta$ is the average time required to send an object over the access link and b is the arrival rate of objects to the access link.
+    \begin{homeworkSection}{(a)}
+        Find the total average response time. \\
+        \problemAnswer{
+            Time required = L/R = $\frac{850000}{15,000,000} = 0.0567s$ \\
+            Traffic Intensity = $16 * 0.0567 = 0.907$ \\
+            Therefore, average access delay = $\frac{0.0567}{1 - 0.907} = 0.6s$ \\
+            The total average response time = $0.6 + 3 = 3.6s$
+        }
+    \end{homeworkSection}
+    
+    \begin{homeworkSection}{(b)}
+        Now suppose a cache is installed in the institutional LAN. Suppose the miss rate is 0.4. Find the total response time. \\
+        \problemAnswer{
+            Average access delay = $\frac{\Delta}{1 - \beta \Delta} = \frac{0.0567}{1 - 0.4 * 16 * 0.0567} = 0.089$ \\
+            Average response time from cache misses = 3 + 0.089 = 3.089s \\
+            Total average response time is 0.6 * 0 + 0.4 * 3.089 = 1.24s \\
+            Due to cache hit, response time is 0 and average response time is reduced from 3.6s to 1.24s.
+        }
+    \end{homeworkSection}
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+\pagebreak
+
+\begin{homeworkProblem}
+    \begin{homeworkSection}{a}
+    \problemAnswer{
+    \texttt{dig +norecurse @a.root-servers.net any cise.ufl.edu}
+    \begin{center}
+        \includegraphics[width=0.75\columnwidth]{dig.png}
+    \end{center}
+    \texttt{dig +norecurse @a.edu-servers.net any www.cise.ufl.edu}
+    \begin{center}
+        \includegraphics[width=0.75\columnwidth]{dig_2.png}
+    \end{center}
+    \texttt{dig +norecurse @ns.name.ufl.edu any www.cise.ufl.edu}
+    \begin{center}
+        \includegraphics[width=0.75\columnwidth]{dig_3.png}
+    \end{center}
+    }
+    \end{homeworkSection}
+    
+    \begin{homeworkSection}{b}
+    \problemAnswer{
+    \texttt{dig +norecurse @a.root-servers.net any google.com}
+    \begin{center}
+        \includegraphics[width=0.75\columnwidth]{dig_1_google.png}
+    \end{center}
+    \texttt{dig +norecurse @a.edu-servers.net any google.com}
+    \begin{center}
+        \includegraphics[width=0.75\columnwidth]{dig_2_google.png}
+    \end{center}
+    \texttt{dig +norecurse @ns1.google.com any google.com}
+    \begin{center}
+        \includegraphics[width=0.75\columnwidth]{dig_3_google.png}
+    \end{center}
+    }
+    \end{homeworkSection}
+\end{homeworkProblem}
+
+
+
+\begin{homeworkProblem}
+    \begin{center}
+        \includegraphics[width=0.75\columnwidth]{wireshark.png}
+    \end{center}
+\begin{homeworkSection}{1}
+Is your browser running HTTP version 1.0 or 1.1?  What version of HTTP is the server running? \\
+\problemAnswer{
+   Both run 1.1.
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{2}
+What languages (if any) does your browser indicate that it can accept to the server? \\
+\problemAnswer{
+    US English (en-US) and other types of English (en)
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{3}
+What is the IP address of your computer?  Of the \texttt{gaia.cs.umass.edu server}?
+\problemAnswer{
+    Internal IP address of my computer: 192.168.0.22\\
+    External IP address of my computer: 70.171.35.146\\
+    IP address of Server: 128.119.245.12 \\
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{4}
+What is the status code returned from the server to your browser? \\
+\problemAnswer{
+    200 (OK).
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{5}
+When was the HTML file that you are retrieving last modified at the server? \\
+\problemAnswer{
+    Last-Modified: Wed, 30 Sep 2020 05:59:02 GMT (As per HTTP Response)
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{6}
+How many bytes of content are being returned to your browser? \\
+\problemAnswer{
+    128 bytes.
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{7}
+By inspecting the raw data in the packet content window, do you see any headers within the data that are not displayed in the packet-listing window?  If so, name one. \\
+\problemAnswer{
+    No.
+}
+\end{homeworkSection}
+% Add image
+\begin{homeworkSection}{8}
+Inspect the contents of the first HTTP GET request from your browser to the server.  Do you see an “IF-MODIFIED-SINCE” line in the HTTP GET? \\
+\problemAnswer{
+    No
+}
+\end{homeworkSection}
+
+
+\begin{homeworkSection}{9}
+Inspect the contents of the server response. Did the server explicitly return the contents of the file?   How can you tell? \\
+\problemAnswer{
+    Yes. Server returned the content of webpage in html format. \\
+    
+    \texttt{
+<html> Congratulations again!  Now you've downloaded the file lab2-2.html. <br> This file's last modification date will not change.  <p> Thus  if you download this multiple times on your browser, a complete copy <br> will only be sent once by the server due to the inclusion of the IN-MODIFIED-SINCE<br> field in your browser's HTTP GET request to the server.</html>
+}
+}
+\end{homeworkSection}
+
+
+\begin{homeworkSection}{10}
+Now inspect the contents of the second HTTP GET request from your browser to the server.  Do you see an “IF-MODIFIED-SINCE:” line in the HTTP GET? If so, what information follows the “IF-MODIFIED-SINCE:” header? \\
+\problemAnswer{
+    Yes. If-Modified-Since: Wed, 30 Sep 2020 05:59:02 GMT (Request date time)
+}
+\end{homeworkSection}
+
+
+\begin{homeworkSection}{11}
+What is the HTTP status code and phrase returned from the server in response to this second HTTP GET?  Did the server explicitly return the contents of the file? Explain. \\
+\problemAnswer{
+    HTTP/1.1 304 Not Modified. No the server didn't explicitly returned the content of the file. The contents of the file were picked up from the browser cache.
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{12}
+How many HTTP GET request messages did your browser send? Which packet number in the trace contains the GET message for the Bill or Rights? \\
+\problemAnswer{
+    My Browser sent 1 \texttt{HTTP} Request. Packet No 3605 contains \texttt{GET} request.
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{13}
+Which packet number in the trace contains the status code and phrase associated with the response to the HTTP GET request? \\
+\problemAnswer{
+    Packet No 3610
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{14}
+What is the status code and phrase in the response? \\
+\problemAnswer{
+    HTTP/1.1 200 OK
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{15}
+How many data-containing TCP segments were needed to carry the single HTTP response and the text of the Bill of Rights? \\
+\problemAnswer{
+    4
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{16}
+How many HTTP GET request messages did your browser send?  To which Internet addresses were these GET requests sent?  \\
+\problemAnswer{
+    3. All request were made to 128.119.245.12
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{17}
+Can you tell whether your browser downloaded the two images serially, or whether they were downloaded from the two web sites in parallel?  Explain. \\
+\problemAnswer{
+    As per timestamp images appear to be downloaded serially. Since image 2 requested only after the response of image 1 was completed.
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{18}
+What is the server’s response (status code and phrase) in response to the initial HTTP GET message from your browser? \\
+\problemAnswer{
+    HTTP/1.1 401 Unauthorized
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{19}
+When your browser’s sends the HTTP GET message for the second time, what new field is included in the HTTP GET message? \\
+\problemAnswer{
+    Cache-Control: max-age=0\\
+    Authorization: Basic d2lyZXNoYXJrLXN0dWRlbnRzOm5ldHdvcms=
+}
+\end{homeworkSection}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+\begin{homeworkSection}{1}
+Run \texttt{nslookup} to obtain the IP address of a Web server in Asia. What is the IP address of that server? \\
+\problemAnswer{
+IP address of the server is \texttt{92.242.140.2}\\
+   \begin{center}
+        \includegraphics[width=0.75\columnwidth]{6_1.png}
+    \end{center}
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{2}
+Run \texttt{nslookup} to determine the authoritative DNS servers for a university in Europe. \\
+\problemAnswer{
+   \begin{center}
+        \includegraphics[width=0.75\columnwidth]{6_2.png}
+    \end{center}
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{3}
+Run \texttt{nslookup} so that one of the DNS servers obtained in Question 2 is queried for the mail servers for Yahoo! mail. What is its IP address? \\
+\problemAnswer{
+I was unable to get response for \texttt{smtp.mail.yahoo.com}/\texttt{imap.mail.yahoo.com}/\texttt{mail.yahoo.com} and \texttt{yahoo.com} so I queried another DNS server with their DNS server. Apart from this, I also queried \texttt{smtp.mail.yahoo.com} with a public DNS and got a response. It is clear that Private DNS by European University are unable to query sites like \texttt{yahoo.com}.
+   \begin{center}
+        \includegraphics[width=0.75\columnwidth]{6_3_1.png}
+    \end{center}
+    
+    \begin{center}
+        \includegraphics[width=0.75\columnwidth]{6_3_2.png}
+    \end{center}
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{4}
+Locate the DNS query and response messages. Are they sent over UDP or TCP?  \\
+\problemAnswer{
+They are sent over UDP.\\
+   \begin{center}
+        \includegraphics[width=0.75\columnwidth]{6_4.png}
+    \end{center}
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{5}
+What is the destination port for the DNS query message? What is the source port of DNS response message? \\
+\problemAnswer{
+  Port 53 for both query and response message.
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{6}
+To what IP address is the DNS query message sent? Use \texttt{ipconfig} to determine the IP address of your local DNS server. Are these two IP addresses the same?   \\
+\problemAnswer{
+   \texttt{68.105.28.11}. It's the DNS address of my ISP (Cox Communication). Yes, it matches one of the Local DNS Server.
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{7}
+Examine the DNS query message. What “Type” of DNS query is it? Does the query message contain any “answers”?  \\
+\problemAnswer{
+   It's type A (IPv4) and type AAAA (IPv6). Nope both do not contains any "answers".
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{8}
+Examine the DNS response message. How many “answers” are provided? What do each of these answers contain? \\
+\problemAnswer{
+   There are 3 responses. One for type AAAA and 2 for type A. Following is the response for each type: \\
+   
+   \textbf{Type AAAA Response}: \\
+   \texttt{
+   Answers\\
+    ietf.org: type AAAA, class IN, addr 2001:1900:3001:11::2c\\
+        Name: ietf.org\\
+        Type: AAAA (IPv6 Address) (28)\\
+        Class: IN (0x0001)\\
+        Time to live: 1773 (29 minutes, 33 seconds)\\
+        Data length: 16\\
+        AAAA Address: 2001:1900:3001:11::2c\\
+   } \\
+   \textbf{Type A Response}: \\
+   \texttt{
+   Answers\\
+    ietf.org: type A, class IN, addr 4.31.198.44\\
+        Name: ietf.org\\
+        Type: A (Host Address) (1)\\
+        Class: IN (0x0001)\\
+        Time to live: 1800 (30 minutes)\\
+        Data length: 4\\
+        Address: 4.31.198.44\\
+}
+   
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{9}
+Consider the subsequent TCP SYN packet sent by your host. Does the destination  IP address of the SYN packet correspond to any of the IP addresses provided in the DNS response message?  \\
+\problemAnswer{
+   Yes. The IPv6 address corresponding to AAAA response address.
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{10}
+This web page contains images. Before retrieving each image, does your host issue new DNS queries? \\
+\problemAnswer{
+   No.
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{11}
+What is the destination port for the DNS query message? What is the source port of DNS response message? \\
+\problemAnswer{
+   Port 53. Both for source and destination port
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{12}
+To what IP address is the DNS query message sent? Is this the IP address of your default local DNS server? \\
+\problemAnswer{
+   \texttt{2001:578:3f::30}. This IP refers to my ISP's DNS Server.
+}
+\end{homeworkSection}
+
+
+\begin{homeworkSection}{13}
+Examine the DNS query message. What “Type” of DNS query is it? Does the query message contain any “answers”? \\
+\problemAnswer{
+   Type A. No, doesn't contain any "answers".
+}
+\end{homeworkSection}
+
+
+\begin{homeworkSection}{14}
+Examine the DNS response message. How many “answers” are provided? What do each of these answers contain? \\
+\problemAnswer{
+   3 answers are provided and following are the content \\
+   \texttt{
+        Answers\\
+    www.mit.edu: type CNAME, class IN, cname www.mit.edu.edgekey.net\\
+        Name: www.mit.edu\\
+        Type: CNAME (Canonical NAME for an alias) (5)\\
+        Class: IN (0x0001)\\
+        Time to live: 1800 (30 minutes)\\
+        Data length: 25\\
+        CNAME: www.mit.edu.edgekey.net\\
+    www.mit.edu.edgekey.net: type CNAME, class IN, cname\\ e9566.dscb.akamaiedge.net\\
+        Name: www.mit.edu.edgekey.net\\
+        Type: CNAME (Canonical NAME for an alias) (5)\\
+        Class: IN (0x0001)\\
+        Time to live: 60 (1 minute)\\
+        Data length: 24\\
+        CNAME: e9566.dscb.akamaiedge.net\\
+    e9566.dscb.akamaiedge.net: type A, class IN, addr 23.73.92.154\\
+        Name: e9566.dscb.akamaiedge.net\\
+        Type: A (Host Address) (1)\\
+        Class: IN (0x0001)\\
+        Time to live: 20 (20 seconds)\\
+        Data length: 4\\
+        Address: 23.73.92.154\\
+   }
+}
+\end{homeworkSection}
+
+
+\begin{homeworkSection}{15}
+Provide a screenshot. \\
+\problemAnswer{
+   \begin{center}
+        \includegraphics[width=0.75\columnwidth]{6_15.png}
+    \end{center}
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{16}
+To what IP address is the DNS query message sent? Is this the IP address of your default local DNS server? \\
+\problemAnswer{
+   \texttt{2001:578:3f::30}. This IP refers to my ISP's DNS Server.
+}
+\end{homeworkSection}
+
+
+\begin{homeworkSection}{17}
+Examine the DNS query message. What “Type” of DNS query is it? Does the query message contain any “answers”? \\
+\problemAnswer{
+   Type NS. No, doesn't contain any "answers".
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{18}
+Examine the DNS response message. What MIT nameservers does the response message provide? Does this response message also provide the IP addresses of the MIT nameservers? \\
+\problemAnswer{
+Following are the list of nameservers and yes it does provide IP address \\
+   \begin{itemize}
+       \item asia2.akam.net
+       \item usw2.akam.net
+       \item ns1-37.akam.net 
+       \item ns1-173.akam.net
+       \item asia1.akam.net
+       \item use5.akam.net 
+       \item use2.akam.net
+       \item eur5.akam.net
+   \end{itemize}
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{19}
+Provide a screenshot. \\
+\problemAnswer{
+   \begin{center}
+       \includegraphics[width=0.75\columnwidth]{6_19.png}
+   \end{center}
+}
+\end{homeworkSection} 
+
+\textbf{\\ Note: For the below experiment (20-23), I was unable to use \texttt{bitsy.mit.edu}. Old DNS server is moved and hence I am using \texttt{1.1.1.1} as DNS server to answer these messages } 
+
+\begin{homeworkSection}{20}
+To what IP address is the DNS query message sent? Is this the IP address of your default local DNS server? If not, what does the IP address correspond to? \\
+\problemAnswer{
+   My DNS query is being sent to \texttt{1.1.1.1} and this IP is different from local DNS IP that I have.
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{21}
+Examine the DNS query message. What “Type” of DNS query is it? Does the query message contain any “answers”? \\
+\problemAnswer{
+   Type A. Not, doesn't contain any "answers".
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{22}
+Examine the DNS response message. How many “answers” are provided? What does each of these answers contain? \\
+\problemAnswer{
+   Only 1 answer is provided and contains the following\\
+   \texttt{
+   Answers\\
+    aiit.or.kr: type A, class IN, addr 58.229.6.225\\
+        Name: aiit.or.kr\\
+        Type: A (Host Address) (1)\\
+        Class: IN (0x0001)\\
+        Time to live: 3600 (1 hour)\\
+        Data length: 4\\
+        Address: 58.229.6.225\\
+   }
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{23}
+Provide a screenshot. \\
+\problemAnswer{
+   \begin{center}
+       \includegraphics[width=0.75\columnwidth]{6_23.png}
+   \end{center}
+}
+\end{homeworkSection}
+
+\end{homeworkProblem}
+\end{document}
+%----------------------------------------------------------------------------------------
+%	DONE
+%----------------------------------------------------------------------------------------
