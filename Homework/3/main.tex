@@ -1,0 +1,187 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Structured General Purpose Assignment
+% LaTeX Template
+%
+% This template has been downloaded from:
+% http://www.latextemplates.com
+%
+% Original author:
+%  Ted Pavlic (http://www.tedpavlic.com)
+% Modified by:
+%  Joe Del Rocco (https://joe.delrocco.org)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%  PACKAGES AND CONFIGURATION
+%----------------------------------------------------------------------------------------
+
+\documentclass[fleqn]{article}
+\usepackage{geometry}
+\usepackage{fancyhdr} % For custom headers
+\usepackage{lastpage} % To determine the last page for the footer
+\usepackage{extramarks} % For headers and footers
+\usepackage[most]{tcolorbox} % For problem answer sections
+\usepackage{graphicx} % For inserting images
+\usepackage{xcolor} % For link coloring
+\usepackage[hidelinks]{hyperref} % For URL links (no box or color name)
+\usepackage{bm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+
+% Margins
+\geometry{
+a4paper,
+tmargin=1in,
+bmargin=1in,
+lmargin=1in,
+rmargin=1in,
+textwidth=6.5in,
+textheight=9.0in,
+headsep=0.25in
+}
+
+% Header and footer
+\pagestyle{fancy}
+\lhead{\myName} % Top left header
+\chead{\myCourse: \myAssignment} % Top center header
+\rhead{\firstxmark} % Top right header
+\lfoot{\lastxmark} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+% Other configurations
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+\setlength\parskip{1pt} % Ensures paragraphs are still recognizable as such
+\setcounter{secnumdepth}{0} % Removes default section numbers
+\setcounter{tocdepth}{3} % Sets depth of table of contents
+\linespread{1.1}
+
+% Template values
+% \newcommand{\myLogo}{starfleet.jpg}
+\newcommand{\myName}{Manish Yadav}
+\newcommand{\myJobTitle}{3836-6483}
+\newcommand{\myCompany}{Starfleet Academy}
+\newcommand{\myLocation}{1701 Lincoln Blvd, San Francisco, CA}
+\newcommand{\myURL}{www.starfleet.edu}
+\newcommand{\myEmail}{m.yadav@ufl.edu}
+\newcommand{\myCourse}{CNT5106C}
+\newcommand{\mySection}{Fall 2020}
+\newcommand{\myTeacher}{Dr. Ye Xia}
+\newcommand{\myAssignment}{Homework 3}
+\newcommand{\myDueDate}{Fri,\ Oct\ 9,\ 2020}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+
+%----------------------------------------------------------------------------------------
+%  DOCUMENT STRUCTURE (MACROS & ENVIRONMENTS)
+%----------------------------------------------------------------------------------------
+
+% Colored links macro
+\newcommand{\hrefcol}[3] {\href{#1}{\textcolor{#3}{#2}}}
+
+% Creates a counter to keep track of the number of problems
+\newcounter{homeworkProblemCounter}
+
+% Macro for custom title page signature header
+\newsavebox{\myTitleSignature}
+\sbox{\myTitleSignature}{%
+\begin{tabular*}{\textwidth}{@{}l@{}@{\extracolsep{0.125in}}l@{}}%
+\parbox[c][]{2.5in}{{\textbf{\myName} \par}
+                    {\small \myJobTitle \par}
+                    {\small \hrefcol{mailto:\myEmail}{\myEmail}{blue}} \par}
+\end{tabular*}}
+
+% Header and footer for when a page split occurs within a problem environment
+\newcommand{\enterProblemHeader}[1]{%
+\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+}
+
+% Header and footer for when a page split occurs between problem environments
+\newcommand{\exitProblemHeader}[1]{%
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+\nobreak\extramarks{#1}{}\nobreak%
+}
+
+\newcommand{\homeworkProblemName}{} % Argument = name of problem; default = "Problem #"
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]{%
+\stepcounter{homeworkProblemCounter}% % Increase counter for number of problems
+\renewcommand{\homeworkProblemName}{#1}% % Assign \homeworkProblemName the argument
+\section{\homeworkProblemName}% % Make a section in the document with the custom problem count
+\enterProblemHeader{\homeworkProblemName}% % Header and footer within environment
+}{%
+\exitProblemHeader{\homeworkProblemName}% % Header and footer after environment
+}
+
+\newcommand{\problemAnswer}[1]{ % Defines the problem answer command with the content as the only argument
+\begin{tcolorbox}[breakable,enhanced,colback=gray!5!white,title=Answer]%
+#1
+\end{tcolorbox}%
+% Alternative - Makes the box around the problem answer and puts the content inside
+%\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}}
+}
+
+\newcommand{\homeworkSectionName}{}
+\newenvironment{homeworkSection}[1]{% % For sections w/in problems; Argument = name of section (no default)
+\renewcommand{\homeworkSectionName}{#1}% % Assign \homeworkSectionName the argument
+\subsection{\homeworkSectionName}% % Make a subsection with the name of the subsection
+\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}% % Header and footer within environment
+}{%
+\enterProblemHeader{\homeworkProblemName}% % Header and footer after environment
+}
+
+%----------------------------------------------------------------------------------------
+%   TITLE PAGE
+%----------------------------------------------------------------------------------------
+\begin{document}
+
+% Blank out the traditional title page
+\title{\vspace{-1in}} % no title name
+\author{} % no author name
+\date{} % no date listed
+\maketitle % makes this a title page
+
+% Use custom title macro instead
+\usebox{\myTitleSignature}
+\vspace{1in} % spacing below title header
+
+% Assignment title
+{\centering \huge \myAssignment \par}
+{\centering \noindent\rule{4in}{0.1pt} \par}
+\vspace{0.05in}
+{\centering \myCourse~: \mySection~: \myTeacher \par}
+{\centering Due \myDueDate \par}
+%{\centering Prepared w/ \LaTeX \par}
+\vspace{1in}
+
+% Table of Contents
+\tableofcontents
+\newpage
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 1
+%----------------------------------------------------------------------------------------
+
+%\begin{homeworkProblem}[Exercise \#\arabic{homeworkProblemCounter}] % Use for custom section title
+\begin{homeworkProblem}
+
+\end{homeworkProblem}
+%----------------------------------------------------------------------------------------
+\pagebreak
+
+
+
+
+\bibliographystyle{plain}
+\bibliography{references} % see references.bib for bibliography management
+\end{document}
+%----------------------------------------------------------------------------------------
+%	DONE
+%----------------------------------------------------------------------------------------
