@@ -171,7 +171,19 @@ headsep=0.25in
 
 %\begin{homeworkProblem}[Exercise \#\arabic{homeworkProblemCounter}] % Use for custom section title
 \begin{homeworkProblem}
-
+\begin{homeworkSection}{P5}
+Suppose that the UDP receiver computes the Internet checksum for the received UDP segment and finds that it matches the value carried in the checksum field. Can the receiver be absolutely certain that no bit errors have occurred? Explain. \\
+\problemAnswer{
+    No. The receiver cannot be certain that no bit errors have occurred. \\
+    
+    It may be possible that both data and checksum have been corrupted that could result in checksum matched at the receiving end \cite{stone2000crc}. \\
+    
+    Also, 2-bit error changes in different word (i.e $1 \rightarrow 0$ and $0 \rightarrow 1$) will not change the sum. Because checksum is merely an addition. Consider two bytes (trimmed down example of WORD) $0000 0101$ and $0000 0011$, this would result in a sum of $0000 1000$. But if 1 bit from each of the bytes is flipped, i.e $0000 0111$ and $0000 0001$ would result in a sum of $0000 1000$ which is the same. \\
+    
+    It could also fail to detect if there is a transposition of the word i.e. $0011$ and $0101$ is being transmitted instead of $0101$ and $0011$
+    
+}
+\end{homeworkSection}
 \end{homeworkProblem}
 %----------------------------------------------------------------------------------------
 \pagebreak
