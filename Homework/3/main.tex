@@ -214,9 +214,167 @@ The sender side of \texttt{rdt3.0} simply ignores (that is, takes no action on) 
 %----------------------------------------------------------------------------------------
 \pagebreak
 
+\begin{homeworkProblem}
+\begin{homeworkSection}{P13}
+Consider the \texttt{rdt 3.0} protocol. Draw a diagram showing that if the network connection between the sender and receiver can reorder messages (that is, that two messages propagating in the medium between the sender and receiver can be reordered), then the alternating-bit protocol will not work correctly (make sure you clearly identify the sense in which it will not work correctly). Your diagram should have the sender on the left and the receiver on the right, with the time axis running down the page, showing data (D), and acknowledgment (A) message exchange. Make sure you indicate the sequence number associated with any data or acknowledgment segment. \\
+\problemAnswer{
+    \begin{center}
+        \includegraphics[width=0.25\columnwidth]{13.png}
+    \end{center}
+    \texttt{rdt 3.0} works correctly under the assumption of a FIFO based channel. In case of packet reordering, it causes \texttt{rdt 3.0} to deliver incorrect data. As in the above case, the older of D0 gets accepted.
+}
+\end{homeworkSection}
+\end{homeworkProblem}
+%----------------------------------------------------------------------------------------
+\pagebreak
+
+\begin{homeworkProblem}
+\begin{homeworkSection}{P15}
+Consider the cross-country example shown in \textbf{Figure 3.17} . How big would the window size have to be for the channel utilization to be greater than 98 percent? Suppose that the size of a packet is 1,500 bytes, including both header fields and data. \\
+\problemAnswer{
+    \begin{equation*}
+        d_{trans} = \frac{L}{R} = \frac{1500 * 8}{10^9} = 0.012ms
+    \end{equation*}
+    In order to get channel utilization,
+    \begin{align*}
+        U &=  N * \frac{L/R}{RTT + L/R} = \frac{N * 0.012}{30 + 0.012} \\
+        \frac{98}{100} & =  \frac{N * 0.012}{30.012} \\
+        N &= 2451
+    \end{align*}
+    \textbf{Therefore the window size should be at least 2451.}
+}
+\end{homeworkSection}
+\end{homeworkProblem}
+%----------------------------------------------------------------------------------------
+\pagebreak
+
+\begin{homeworkProblem}
+\begin{homeworkSection}{P19}
+Consider a scenario in which Host A wants to simultaneously send packets to Hosts B and C. A is connected to B and C via a broadcast channel—a packet sent by A is carried by the channel to both B and C. Suppose that the broadcast channel connecting A, B, and C can independently lose and corrupt packets (and so, for example, a packet sent from A might be correctly received by B, but not by C). Design a stop-and-wait-like error-control protocol for reliably transferring packets from A to B and C, such that A will not get new data from the upper layer until it knows that both B and C have correctly received the current packet. Give FSM descriptions of A and C. (Hint: The FSM for B should be essentially the same as for C.) Also, give a description of the packet format(s) used. \\
+\problemAnswer{
+The below diagrams illustrates three host A, B and C. The first diagrams illustrates the sender state indicating where the channel may lose message on B/C or both. In order to make sure the receiver has received message we make use of sequence number that ensures that receiver does not get the same message again. Hence with sequence number, the sender mechanism should be able to work. \\
+    \textbf{Sender}
+    \begin{center}
+        \includegraphics[width=1.0\columnwidth]{19.png}
+    \end{center}
+    \textbf{Receiver}
+    \begin{center}
+        \includegraphics[width=0.75\columnwidth]{19_receiver.png}
+    \end{center}
+
+}
+\end{homeworkSection}
+\end{homeworkProblem}
+%----------------------------------------------------------------------------------------
+\pagebreak
 
 
+\begin{homeworkProblem}
+Consider the GBN protocol with a sender window size of 4 and a sequence number range of 1,024. Suppose that at time t, the next in-order packet that the receiver is expecting has a
+sequence number of k. Assume that the medium does not reorder messages. Answer the following questions:
+\begin{homeworkSection}{P22 a}
+What are the possible sets of sequence numbers inside the sender’s window at time t? Justify your answer. \\
+\problemAnswer{
+    At the time $t$, the receiver would get packet $k$, meaning packets from $[k - 4...k - 1]$ has been received already. If all of these packets are ACK'd then the window is $[k, k + 3]$. Also packet $k$ to packet $k + 3$ maybe already sent from sender side. 
 
+    Therefore sender's window is $[k - 4, k]$. In case the beginning of the window is at $k$, then packet sequence will be from $[k, k + 3]$
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{P22 b}
+What are all possible values of the ACK field in all possible messages currently propagating back to the sender at time t? Justify your answer. \\
+\problemAnswer{
+    Same as above, $\text{ACK }{k - 5}$ to $\text{ACK }{k - 1}$ has already sent from receiver. Additionally, the receiver may be just received packet $k - 1$ at time $t$, in this case, the previous ACKs are still propagating. 
+}
+\end{homeworkSection}
+\end{homeworkProblem}
+%----------------------------------------------------------------------------------------
+\pagebreak
+
+
+\begin{homeworkProblem}
+\begin{homeworkSection}{P23}
+Consider the GBN and SR protocols. Suppose the sequence number space is of size k. What is the largest allowable sender window that will avoid the occurrence of problems such as that in Figure 3.27 for each of these protocols? \\
+\problemAnswer{
+    The largest allowable sender window that will avoid the occurrence of the problem in Figure 3.27 would have to be less than or equal to half of the sequence number space size \cite{kurose2010computer}.
+}
+\end{homeworkSection}
+\end{homeworkProblem}
+%----------------------------------------------------------------------------------------
+\pagebreak
+
+\begin{homeworkProblem}
+Answer true or false to the following questions and briefly justify your answer:
+
+\begin{homeworkSection}{P24 a}
+With the SR protocol, it is possible for the sender to receive an ACK for a packet that falls outside of its current window \\
+\problemAnswer{
+		True. This is possible in case the receiver's ACKs are received after the sender is timed out. As the second group of ACKs for the would-be resent even if the window has advanced past those packets.
+
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{P24 b}
+With GBN, it is possible for the sender to receive an ACK for a packet that falls outside of its current window. \\
+\problemAnswer{
+    True. Same as P24 a.
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{P24 c}
+The alternating-bit protocol is the same as the SR protocol with a sender and receiver window size of 1. \\
+\problemAnswer{
+    True.
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{P24 d}
+The alternating-bit protocol is the same as the GBN protocol with a sender and receiver window size of 1. \\
+\problemAnswer{
+    True. A window size of 1 avoids the packet from being out of order.
+}
+\end{homeworkSection}
+\end{homeworkProblem}
+%----------------------------------------------------------------------------------------
+\pagebreak
+
+\begin{homeworkProblem}
+Host A and B are communicating over a TCP connection, and Host B has already received from A all bytes up through byte 126. Suppose Host A then sends two segments to Host B back-to-back. The first and second segments contain 80 and 40 bytes of data, respectively. In the first segment, the sequence number is 127, the source port number is 302, and the destination port number is 80. Host B sends an acknowledgment whenever it receives a segment from Host A.
+\begin{homeworkSection}{P27 a}
+In the second segment sent from Host A to B, what are the sequence number, source port number, and destination port number? \\
+\problemAnswer{
+    Sequence number = 127+80 = 207\\ Source port number = 302 \\ Destination port number
+= 80
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{P27 b}
+If the first segment arrives before the second segment, in the acknowledgment of the first arriving segment, what is the acknowledgment number, the source port number, and the
+destination port number?\\
+\problemAnswer{
+    Acknowledgment number = 207\\
+Source port number = 80 \\
+Destination port number = 302
+}
+\end{homeworkSection}
+\begin{homeworkSection}{P27 c}
+If the second segment arrives before the first segment, in the acknowledgment of the first arriving segment, what is the acknowledgment number? \\
+\problemAnswer{
+    In the event of the second segment arriving before the first segment, the acknowledgment number would be 127 since it is missing a segment of 80 bytes which has to be delivered to maintain the order.
+}
+\end{homeworkSection}
+\begin{homeworkSection}{P27 d}
+Suppose the two segments sent by A arrive in order at B. The first acknowledgment is lost and the second acknowledgment arrives after the first timeout interval. Draw a timing diagram, showing these segments and all other segments and acknowledgments sent. (Assume there is no additional packet loss.) For each segment in your figure, provide the sequence number and the number of bytes of data; for each acknowledgment that you add, provide the acknowledgment number. \\
+\problemAnswer{
+    \begin{center}
+        \includegraphics[width=0.25\columnwidth]{22.png}
+    \end{center}
+    Left side = Host A, Right side = Host B
+}
+\end{homeworkSection}
+
+\end{homeworkProblem}
+\pagebreak
 \bibliographystyle{plain}
 \bibliography{references} % see references.bib for bibliography management
 \end{document}
