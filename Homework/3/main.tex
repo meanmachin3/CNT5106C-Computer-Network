@@ -188,6 +188,32 @@ Suppose that the UDP receiver computes the Internet checksum for the received UD
 %----------------------------------------------------------------------------------------
 \pagebreak
 
+\begin{homeworkProblem}
+\begin{homeworkSection}{P6}
+Consider our motivation for correcting protocol \texttt{rdt2.1}. Show that the receiver, shown in \textbf{Figure 3.57}, when operating with the sender shown in \textbf{Figure 3.11}, can lead the sender and receiver to enter into a deadlock state, where each is waiting for an event that will never occur \\
+\problemAnswer{
+    The real problem lies with the fact that the sender has to receive an acknowledgment from the receiver in order to send the next packet. \\
+    
+    To best illustrate this scenario, consider a scenario where the receiver received a packet, sent an ACK, and now has moved to wait for another packet 0. However, the ACK sent is corrupted and the sender sends back packet 1 again. Now, both the sender and receiver have entered a state where they keep sending packet 1 and the receiver keeps sending NACK since it is now waiting for packet 0 to arrive.
+}
+\end{homeworkSection}
+\end{homeworkProblem}
+%----------------------------------------------------------------------------------------
+\pagebreak
+
+\begin{homeworkProblem}
+\begin{homeworkSection}{P12}
+The sender side of \texttt{rdt3.0} simply ignores (that is, takes no action on) all received packets that are either in error or have the wrong value in the \texttt{acknum} field of an acknowledgment packet. Suppose that in such circumstances, \texttt{rdt3.0} were simply to retransmit the current data packet. Would the protocol still work? (Hint: Consider what would happen if there were only bit errors; there are no packet losses but premature timeouts can occur. Consider how many times the $n^{th}$ packet is sent, in the limit as $n$ approaches infinity.) \\
+\problemAnswer{
+    Yes. The protocol would still work. There would be packet re-transmission in case if the ACK was completely lost or had errors.\\
+    
+    Consider a case where packet 1 was sent. In case of premature timeout, an extra copy would be sent that would be ACK'd by the receiver. This would cause the sender to send an extra copy of packet 2. This extra copy would be ACK'd along with the previous one causing packet 3 to be sent twice. This process continues to repeat on and on. Since $n$ approaches infinity, the number of the packet sent would tend towards infinity as well.
+}
+\end{homeworkSection}
+\end{homeworkProblem}
+%----------------------------------------------------------------------------------------
+\pagebreak
+
 
 
 
